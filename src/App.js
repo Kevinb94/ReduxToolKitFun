@@ -1,7 +1,31 @@
+import React, { useState, useEffect } from 'react';
+import configureStore from './store/configureStore';
+import * as actions from './store/bugs';
 import logo from './logo.svg';
 import './App.css';
 
+
+const store = configureStore();
+
+store.subscribe(() => {
+    console.log("store changed!");
+});
+
+
+
 function App() {
+
+
+  useEffect(() => {
+
+    store.dispatch(actions.bugAdded({ description: "Bug 1" }));
+    store.dispatch(actions.bugAdded({ description: "Bug 2" }));
+    store.dispatch(actions.bugAdded({ description: "Bug 3" }));
+    store.dispatch(actions.bugResolved({ id: 2 }));
+    
+  });
+
+
   return (
     <div className="App">
       <header className="App-header">
