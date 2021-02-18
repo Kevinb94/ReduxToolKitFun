@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import configureStore from './store/configureStore';
-import * as actions from './store/bugs';
+import {
+    bugAdded, 
+    bugResolved, 
+    bugRemoved, 
+    getUnresolvedBugs,
+    getUserBugs,
+    bugAssignedToUser
+  }from './store/bugs';
 import { projectAdded } from './store/projects';
+import { userAdded } from './store/users';
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,12 +28,26 @@ function App() {
 
   useEffect(() => {
     
+    //Projects
     store.dispatch(projectAdded({name: "Project 1"}));
-    store.dispatch(actions.bugAdded({ description: "Bug 1" }));
-    store.dispatch(actions.bugAdded({ description: "Bug 2" }));
-    store.dispatch(actions.bugAdded({ description: "Bug 3" }));
-    store.dispatch(actions.bugResolved({ id: 2 }));
+
+    //Bugs
+    store.dispatch(bugAdded({ description: "Bug 1" }));
+    store.dispatch(bugAdded({ description: "Bug 2" }));
+    store.dispatch(bugAdded({ description: "Bug 3" }));
+
+    //Users
+    store.dispatch(userAdded({ name: "Ragnar" }));
+
+    // store.dispatch(bugResolved({ id: 2 }));
+    // store.dispatch(bugResolved({ id: 1 }));
+    store.dispatch(bugAssignedToUser({ bugID: 1, userID: 1 }));
     
+    const unresolvedBugs1 = getUnresolvedBugs(store.getState());
+    const unresolvedBugs2 = getUnresolvedBugs(store.getState());
+    const userBugs = getUserBugs(1)(store.getState());
+    // console.log(unresolvedBugs1 === unresolvedBugs2);
+    console.log(userBugs)
   });
 
 
