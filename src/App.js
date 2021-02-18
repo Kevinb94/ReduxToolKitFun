@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import configureStore from './store/configureStore';
 import * as actions from './store/bugs';
+import { projectAdded } from './store/projects';
 import logo from './logo.svg';
 import './App.css';
 
@@ -17,7 +18,8 @@ function App() {
 
 
   useEffect(() => {
-
+    
+    store.dispatch(projectAdded({name: "Project 1"}));
     store.dispatch(actions.bugAdded({ description: "Bug 1" }));
     store.dispatch(actions.bugAdded({ description: "Bug 2" }));
     store.dispatch(actions.bugAdded({ description: "Bug 3" }));

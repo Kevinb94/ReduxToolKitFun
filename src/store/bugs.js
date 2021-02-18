@@ -8,7 +8,7 @@ const slice = createSlice({
     reducers: {
         bugAdded: (bugs, action) => {
             bugs.push({
-                id: lastId ++,
+                id: lastId++,
                 description: action.payload.description,
                 resolved: false
             })
